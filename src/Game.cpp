@@ -3,15 +3,22 @@
 #include "Game.hpp"
 #include "Constants.hpp"
 #include "InitException.hpp"
+#include "Rectangle.hpp"
+#include "Renderer.hpp"
 #include "Window.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
+#include <SDL2/SDL_rect.h>
+#include <cstdlib>
+#include <iostream>
 #include <utility>
 
-Game::Game(int w, int h)
-    : window{nullptr}, renderer{nullptr}, projectiles{},
+Game::Game(const int w, const int h)
+    : window{nullptr}, renderer{nullptr}, snowflakes{},
+      ground({0, WINDOW_HEIGHT}, {WINDOW_WIDTH, 0}), contacts{0},
       last_frame_ticks_ms(0.0f), is_running{false} {
 
+  contacts = 0;
   if (SDL_Init(SDL_INIT_EVERYTHING)) {
     throw InitException("SDL");
   }
@@ -19,10 +26,11 @@ Game::Game(int w, int h)
   window = new Window("oo game engine", w, h);
   renderer = new Renderer(window);
 
-  int j{10};
-  for (int i{10}; i; --i) {
-    int randNum = rand() % w;
-    projectiles.push_back(Projectile{{j += 10, 20}, {10, 10}});
+  for (int i{100'000}; i; --i) {
+    int rand_x = rand() % w;
+    int rand_y = rand() % 800 + 100;
+    int rand_vel_y = rand() % 200 + 150;
+    snowflakes.push_back(Snowflake{{rand_x, -rand_y}, {2, 2}, {0, rand_vel_y}});
   }
 
   is_running = true;
@@ -39,16 +47,18 @@ Game::Game(const Game &that) : Game(that.window->w, that.window->h) {}
 
 Game &Game::operator=(const Game &that) { return *this = Game(that); }
 
-Game::Game(Game &&that) noexcept {
-  window = std::exchange(that.window, nullptr);
-  renderer = std::exchange(that.renderer, nullptr);
-  projectiles.swap(that.projectiles);
+Game::Game(Game &&that)
+    : window{std::exchange(that.window, nullptr)}, renderer{std::exchange(
+                                                       that.renderer, nullptr)},
+      ground(that.ground), snowflakes{} {
+  snowflakes.swap(that.snowflakes);
 }
 
 Game &Game::operator=(Game &&that) {
   std::swap(window, that.window);
   std::swap(renderer, that.renderer);
-  projectiles.swap(that.projectiles);
+  snowflakes.swap(that.snowflakes);
+  std::swap(ground, that.ground);
   return *this;
 }
 
@@ -66,11 +76,31 @@ static bool is_terminated(const Event &event) {
 }
 
 void Game::update(const Event &event) {
+  renderer->reset();
   is_running = !is_terminated(event);
-  for (auto &projectile : projectiles) {
-    projectile.control(event);
-    projectile.transform(renderer->dt);
-    projectile.move({0, 170}, renderer->dt);
+
+  for (int i = 0; i < snowflakes.size(); ++i) {
+    auto &snowflake = snowflakes.at(i);
+
+    if (snowflake.y >= ground.y) {
+      contacts++;
+      snowflake.y = -10;
+      snowflake.landed = true;
+      if (!(contacts % 1000)) {
+        ground.transform(renderer->dt);
+        ground.move(renderer->dt);
+      }
+      continue;
+    }
+
+    if (!snowflake.landed) {
+      snowflake.control(event);
+      snowflake.transform(renderer->dt);
+      snowflake.move(renderer->dt);
+    }
   }
-  renderer->render<Projectile>(&projectiles);
+
+  renderer->render<Rectangle>(ground);
+  renderer->render<Snowflake>(snowflakes);
+  renderer->flush();
 }

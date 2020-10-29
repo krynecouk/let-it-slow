@@ -17,5 +17,8 @@ public:
   Renderer &operator=(Renderer that);
 
   float dt;
-  template <typename T> void render(std::vector<T> *components);
+  void reset();
+  template <typename T> void render(const T &component);
+  template <typename T> void render(const std::vector<T> &components);
+  void flush();
 };

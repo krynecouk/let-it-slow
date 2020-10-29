@@ -1,22 +1,25 @@
 #pragma once
 
-#include "Projectile.hpp"
+#include "Ground.hpp"
 #include "Renderer.hpp"
+#include "Snowflake.hpp"
 #include "Window.hpp"
 
 class Game {
   Window *window;
   Renderer *renderer;
-  std::vector<Projectile> projectiles;
+  std::vector<Snowflake> snowflakes;
+  Ground ground;
+  int contacts;
   float last_frame_ticks_ms;
 
 public:
   Game();
-  Game(int width, int height);
+  Game(const int width, const int height);
   ~Game();
   Game(const Game &that);
   Game &operator=(const Game &that);
-  Game(Game &&that) noexcept;
+  Game(Game &&that);
   Game &operator=(Game &&that);
 
   bool is_running;

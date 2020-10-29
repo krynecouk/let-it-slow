@@ -3,7 +3,7 @@
 int main() {
   Game game{};
 
-  for (int i{30}; i; --i) {
+  for (int i{300}; i; --i) {
     if (!game.is_running) {
       break;
     }
