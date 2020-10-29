@@ -1,23 +1,16 @@
-#include "Constants.hpp"
 #include "Game.hpp"
-#include "Projectile.hpp"
-#include <iostream>
-#include <memory>
 
 int main() {
   Game game{};
-  Projectile projectile{};
-  game.add_component(&projectile);
-  int i{100};
-  while (i) {
+
+  for (int i{30}; i; --i) {
     if (!game.is_running) {
       break;
     }
+
     SDL_Event event;
     SDL_PollEvent(&event);
-    game.control(event);
-    game.render();
-    i--;
+    game.update(event);
   }
   return 0;
 }

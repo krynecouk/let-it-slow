@@ -1,7 +1,7 @@
 #pragma once
 
-#include <SDL2/SDL_events.h>
+#include "Event.hpp"
 
-template <typename E> class Controllable {
-  virtual void control(E &event) = 0;
+template <typename E = Event> class Controllable {
+  virtual void control(const E &event) = 0;
 };
