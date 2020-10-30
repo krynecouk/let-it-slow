@@ -1,11 +1,10 @@
 # Let it Slow
 
-Slow and purposely underperformed rendering of the 100000 snowflakes written in object oriented way.
-<image>
+Slow and purposely unefficient rendering of the 100000 snowflakes written in an object oriented way.
 
 ![Teaser of the gameplay](let-it-slow.gif)
 
-Purpose of this project is to measure cache misses, branches and compiled output with a performent solution written in data oriented way (TBD).
+Purpose of this project is to measure cache misses and branches and results compare with a efficient solution written in data oriented way (TBD).
 
 ## Cache Misses and Branches
 
