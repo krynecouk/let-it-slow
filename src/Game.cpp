@@ -79,9 +79,7 @@ void Game::update(const Event &event) {
   renderer->reset();
   is_running = !is_terminated(event);
 
-  for (int i = 0; i < snowflakes.size(); ++i) {
-    auto &snowflake = snowflakes.at(i);
-
+  for (auto &snowflake : snowflakes) {
     if (snowflake.y >= ground.y) {
       contacts++;
       snowflake.y = -10;
@@ -97,10 +95,10 @@ void Game::update(const Event &event) {
       snowflake.control(event);
       snowflake.transform(renderer->dt);
       snowflake.move(renderer->dt);
+      renderer->render<Snowflake>(snowflake);
     }
   }
 
   renderer->render<Rectangle>(ground);
-  renderer->render<Snowflake>(snowflakes);
   renderer->flush();
 }

@@ -7,7 +7,6 @@
 #include "Snowflake.hpp"
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_timer.h>
-#include <iostream>
 #include <utility>
 
 Renderer::Renderer(Window *window)
@@ -53,9 +52,6 @@ template <typename T> void Renderer::render(const std::vector<T> &components) {
   // TODO kryszczuk: batch rendering preferable
   const T *rects_arr = components.data();
   for (int i = components.size() - 1; i >= 0; i--) {
-    // std::cout << "arr_" << i << ":(" << rects_arr[i].x << "," <<
-    // rects_arr[i].y
-    //           << ")\n";
     render(rects_arr[i]);
   }
 };
@@ -69,6 +65,8 @@ void Renderer::flush() {
 }
 
 template void Renderer::render<Rectangle>(const Rectangle &component);
+
+template void Renderer::render<Snowflake>(const Snowflake &component);
 
 template void
 Renderer::render<Snowflake>(const std::vector<Snowflake> &components);
