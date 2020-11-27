@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Snowflake.hpp"
 #include "Rectangle.hpp"
 #include <SDL_keycode.h>

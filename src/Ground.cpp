@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Ground.hpp"
 
 Ground::Ground(const Vec2<> position, const Vec2<> size)

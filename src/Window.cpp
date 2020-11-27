@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Window.hpp"
 #include "InitException.hpp"
 #include <iostream>

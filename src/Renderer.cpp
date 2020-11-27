@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Renderer.hpp"
 #include "Constants.hpp"
 #include "InitException.hpp"
