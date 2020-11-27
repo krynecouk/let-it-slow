@@ -1,5 +1,5 @@
 build:
-	clang++-10 \
+	clang++ \
     -std=c++17 \
 	./src/*.cpp \
 	-o game \
