@@ -1,5 +1,6 @@
 build:
-	g++-9 \
+	clang++ \
+    -std=c++17 \
 	./src/*.cpp \
 	-o game \
 	$(shell sdl2-config --libs --cflags) \
