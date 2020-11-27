@@ -3,3 +3,4 @@ game
 game-dev
 cachegrind.out.*
 valgrind-out.txt
+.ccls-cache/

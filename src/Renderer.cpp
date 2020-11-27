@@ -5,8 +5,8 @@
 #include "InitException.hpp"
 #include "Rectangle.hpp"
 #include "Snowflake.hpp"
-#include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_timer.h>
+#include <SDL_rect.h>
+#include <SDL_timer.h>
 #include <utility>
 
 Renderer::Renderer(Window *window)

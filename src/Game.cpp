@@ -6,9 +6,9 @@
 #include "Rectangle.hpp"
 #include "Renderer.hpp"
 #include "Window.hpp"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_error.h>
-#include <SDL2/SDL_rect.h>
+#include <SDL.h>
+#include <SDL_error.h>
+#include <SDL_rect.h>
 #include <cstdlib>
 #include <iostream>
 #include <utility>

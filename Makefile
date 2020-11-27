@@ -1,12 +1,9 @@
 build:
-	g++-8 -w -std=c++17 -Wfatal-errors \
-	-g \
+	g++-9 \
 	./src/*.cpp \
 	-o game \
-	-lSDL2 \
-	-lSDL2_image \
-	-lSDL2_ttf \
-	-lSDL2_mixer;
+	$(shell sdl2-config --libs --cflags) \
+    -g;
 
 build-dev:
 	g++-8 -w -std=c++17 -Wfatal-errors \

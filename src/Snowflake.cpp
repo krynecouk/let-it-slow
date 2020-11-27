@@ -2,9 +2,9 @@
 
 #include "Snowflake.hpp"
 #include "Rectangle.hpp"
-#include "SDL2/SDL_rect.h"
-#include "SDL2/SDL_render.h"
-#include <SDL2/SDL_keycode.h>
+#include <SDL_keycode.h>
+#include <SDL_rect.h>
+#include <SDL_render.h>
 
 Snowflake::Snowflake(const Vec2<> position, const Vec2<> size,
                      const Vec2<> velocity)
